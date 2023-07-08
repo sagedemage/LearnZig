@@ -4,7 +4,7 @@ const io = std.io;
 
 pub fn main() !void {
     // Open a file
-    var file = try std.fs.cwd().openFile("text.txt", .{});
+    var file = try std.fs.cwd().openFile("read_file/text.txt", .{});
 
     // Close the file
     defer file.close();
