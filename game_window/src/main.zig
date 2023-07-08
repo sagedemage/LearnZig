@@ -23,7 +23,9 @@ pub fn main() void {
             }
         }
 
-        _ = c.SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
+        // [ Red, Green, Blue, Alpha ]
+        _ = c.SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         _ = c.SDL_RenderClear(renderer);
+        c.SDL_RenderPresent(renderer);
     }
 }
