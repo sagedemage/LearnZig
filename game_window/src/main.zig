@@ -2,15 +2,21 @@ const c = @cImport({
     @cInclude("SDL2/SDL.h");
 });
 
+const std = @import("std");
+
 const level_width = 640;
 const level_height = 400;
 const screen_width = 800;
 const screen_height = 450;
 const image_width = 40;
 const image_height = 40;
+const player_speed = 2;
 
 pub fn main() void {
-    _ = c.SDL_Init(c.SDL_INIT_VIDEO);
+    const status: c_int = c.SDL_Init(c.SDL_INIT_VIDEO);
+    if (status == -1) {
+        std.debug.print("SDL_Init Error", .{});
+    }
     defer c.SDL_Quit();
 
     // Create window
@@ -30,17 +36,22 @@ pub fn main() void {
 
     // Source and destination rectangle of the image
     const srcrect = c.SDL_Rect{.x = 0, .y = 0, .w = image_width, .h = image_height};
-    const dstrect = c.SDL_Rect{.x = 20, .y = 20, .w = image_width, .h = image_height};
+    var dstrect = c.SDL_Rect{.x = 20, .y = 20, .w = image_width, .h = image_height};
 
     // [ Red, Green, Blue, Alpha ]
     _ = c.SDL_SetRenderDrawColor(rend, 255, 255, 255, 255);
 
     mainloop: while(true) {
         // Game loop
-        var sdl_event: c.SDL_Event = undefined;
-        while (c.SDL_PollEvent(&sdl_event) != 0) {
-            switch(sdl_event.type) {
+        var event: c.SDL_Event = undefined;
+        while (c.SDL_PollEvent(&event) != 0) {
+            switch(event.type) {
                 c.SDL_QUIT => break :mainloop,
+                c.SDL_KEYDOWN => {
+                    if (event.key.keysym.scancode == c.SDL_SCANCODE_ESCAPE) {
+                        break :mainloop;
+                    }
+                },
                 else => {},
             }
         }
