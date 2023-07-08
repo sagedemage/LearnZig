@@ -11,9 +11,10 @@ This whole repository is for learning the new programming language Zig.
 ![install zig from source](./install_zig_from_source.md)
 
 ## Zig CLI
-### Compile and execute the any of the code exmaples
+### Build and Compile any of the code exmaples
+For example:
 ```
-zig build run
+zig run convert_string_to_integer/src/main.zig 
 ```
 
 ### Setup a Zig project
