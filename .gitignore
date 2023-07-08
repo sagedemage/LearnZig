@@ -1,8 +1,8 @@
 zig-cache 
 zig-out
-game_window/debug/*
-game_window/prod/*
-!game_window/debug/build.sh
-!game_window/prod/build.sh
+*/debug/*
+*/prod/*
+!*/debug/build.sh
+!*/prod/build.sh
 
 
