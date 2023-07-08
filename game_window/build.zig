@@ -15,6 +15,7 @@ pub fn build(b: *std.build.Builder) void {
     exe.setTarget(target);
     exe.setBuildMode(mode);
     exe.linkLibC();
+    exe.linkSystemLibrary("sdl2");
     exe.install();
 
     const run_cmd = exe.run();
