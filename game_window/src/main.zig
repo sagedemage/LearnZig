@@ -56,18 +56,33 @@ pub fn main() void {
             }
         }
 
-        // Hold Keybindings
-        // Get Keyboard State Feature Does Not Work
-        //var state = c.SDL_GetKeyboardState(null);
-        //if (state[c.SDL_SCANCODE_RIGHT] == 1) {
-        //    dstrect.x += player_speed;
-        //}
+        // Hold Movement Keybindings
+        var state = c.SDL_GetKeyboardState(null);
+        if (state[c.SDL_SCANCODE_RIGHT] == 1) {
+            dstrect.x += player_speed;
+        }
+        if (state[c.SDL_SCANCODE_LEFT] == 1) {
+            dstrect.x -= player_speed;
+        }
+        if (state[c.SDL_SCANCODE_DOWN] == 1) {
+            dstrect.y += player_speed;
+        }
+        if (state[c.SDL_SCANCODE_UP] == 1) {
+            dstrect.y -= player_speed;
+        }
 
         // Clear renderer
         _ = c.SDL_RenderClear(rend);
+        
         // Render the image
         _ = c.SDL_RenderCopy(rend, image_texture, &srcrect, &dstrect);
+        
         // Updates the screen (renderer)
         c.SDL_RenderPresent(rend);
+
+        // Calculates to 60 fps
+        const miliseconds = 1000;
+        const gameplay_frames = 60;
+        c.SDL_Delay(miliseconds / gameplay_frames);
     }
 }
