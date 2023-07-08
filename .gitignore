@@ -1,8 +1,6 @@
 zig-cache 
 zig-out
-*/debug/*
 */prod/*
-!*/debug/build.sh
 !*/prod/build.sh
 *.kra
 *.kra*
