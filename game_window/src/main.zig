@@ -56,6 +56,13 @@ pub fn main() void {
             }
         }
 
+        // Hold Keybindings
+        // Get Keyboard State Feature Does Not Work
+        //var state = c.SDL_GetKeyboardState(null);
+        //if (state[c.SDL_SCANCODE_RIGHT] == 1) {
+        //    dstrect.x += player_speed;
+        //}
+
         // Clear renderer
         _ = c.SDL_RenderClear(rend);
         // Render the image
