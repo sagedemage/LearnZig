@@ -71,6 +71,24 @@ pub fn main() void {
             dstrect.y -= player_speed;
         }
 
+        // Player boundaries
+        if (dstrect.x < 0) {
+            // left boundary
+            dstrect.x = 0;
+        }
+        if (dstrect.x + dstrect.w > level_width) {
+            // right boundary
+            dstrect.x = level_width - dstrect.w;
+        }
+        if (dstrect.y + dstrect.h > level_height) {
+            // bottom boundary
+            dstrect.y = level_height - dstrect.h;
+        }
+        if (dstrect.y < 0) {
+            // top boundary
+            dstrect.y = 0;
+        }
+
         // Clear renderer
         _ = c.SDL_RenderClear(rend);
         
