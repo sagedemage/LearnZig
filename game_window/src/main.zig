@@ -1,3 +1,4 @@
+/// Game Window using SDL2
 const c = @cImport({
     @cInclude("SDL2/SDL.h");
     @cInclude("SDL2/SDL_image.h");
