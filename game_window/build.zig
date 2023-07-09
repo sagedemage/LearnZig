@@ -17,6 +17,7 @@ pub fn build(b: *std.build.Builder) void {
     exe.linkLibC();
     exe.linkSystemLibrary("sdl2");
     exe.linkSystemLibrary("sdl2_image");
+    exe.linkSystemLibrary("sdl2_mixer");
     exe.install();
 
     const run_cmd = exe.run();

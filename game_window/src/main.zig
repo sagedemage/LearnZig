@@ -6,13 +6,14 @@ const c = @cImport({
 
 const std = @import("std");
 
-const level_width = 640;
-const level_height = 400;
-const screen_width = 800;
-const screen_height = 450;
-const player_width = 40;
-const player_height = 40;
-const player_speed = 2;
+const level_width: i32 = 640;
+const level_height: i32 = 400;
+const screen_width: i32 = 800;
+const screen_height: i32 = 450;
+const player_width: i32 = 40;
+const player_height: i32 = 40;
+const player_speed: i32 = 2;
+const chunksize: i32 = 1024;
 
 pub fn main() void {
     const sdl_status: c_int = c.SDL_Init(c.SDL_INIT_VIDEO);
