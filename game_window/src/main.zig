@@ -2,6 +2,7 @@
 const c = @cImport({
     @cInclude("SDL2/SDL.h");
     @cInclude("SDL2/SDL_image.h");
+    @cInclude("SDL2/SDL_mixer.h");
 });
 
 const std = @import("std");
@@ -14,22 +15,33 @@ const player_width: i32 = 40;
 const player_height: i32 = 40;
 const player_speed: i32 = 2;
 const chunksize: i32 = 1024;
+const music_volume: i32 = 64; // 128
 
 pub fn main() void {
     const sdl_status: c_int = c.SDL_Init(c.SDL_INIT_VIDEO);
     defer c.SDL_Quit();
 
     if (sdl_status == -1) {
-        std.debug.print("SDL_Init Error", .{});
+        std.debug.print("SDL_Init Error\n", .{});
     }
 
     // Create window
     const window = c.SDL_CreateWindow("SDL2 Window", c.SDL_WINDOWPOS_CENTERED, c.SDL_WINDOWPOS_CENTERED, level_width, level_height, 0);
     defer c.SDL_DestroyWindow(window);
 
+    // Initialize SDL_mixer
+    const open_audio: c_int = c.Mix_OpenAudio(c.MIX_DEFAULT_FREQUENCY, c.MIX_DEFAULT_FORMAT, 2, chunksize);
+    defer c.Mix_CloseAudio();
+
+    if (open_audio == -1) {
+        std.debug.print("Mix_OpenAudio Error\n", .{});
+    }
+
     // Create renderer
     const rend = c.SDL_CreateRenderer(window, 0, c.SDL_RENDERER_ACCELERATED);
     defer c.SDL_DestroyRenderer(rend);
+
+    const music = c.Mix_LoadMUS("test.ogg");
 
     // Create player surface
     const player_surface = c.IMG_Load("player.png");
@@ -45,6 +57,15 @@ pub fn main() void {
 
     // [ Red, Green, Blue, Alpha ]
     _ = c.SDL_SetRenderDrawColor(rend, 255, 255, 255, 255);
+
+    _ = c.Mix_VolumeMusic(music_volume);
+
+    // Start background music (-1 means infinity)
+    const music_status: c_int = c.Mix_PlayMusic(music, -1);
+
+    if (music_status == -1) {
+        std.debug.print("Mix_PlayMusic Error\n", .{});
+    }
 
     mainloop: while(true) {
         // Game loop

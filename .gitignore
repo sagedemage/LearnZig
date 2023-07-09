@@ -4,5 +4,7 @@ zig-out
 !*/prod/build.sh
 *.kra
 *.kra*
-
+*.aup3
+*.mscz
+.mscbackup/
 
