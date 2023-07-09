@@ -1,5 +1,6 @@
 const c = @cImport({
     @cInclude("SDL2/SDL.h");
+    @cInclude("SDL2/SDL_image.h");
 });
 
 const std = @import("std");
@@ -27,7 +28,7 @@ pub fn main() void {
     defer c.SDL_DestroyRenderer(rend);
 
     // Create player surface
-    const player_surface = c.SDL_LoadBMP("test.bmp");
+    const player_surface = c.IMG_Load("player.png");
     defer c.SDL_FreeSurface(player_surface);
 
     // Create player texture
