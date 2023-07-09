@@ -8,8 +8,8 @@ const level_width = 640;
 const level_height = 400;
 const screen_width = 800;
 const screen_height = 450;
-const image_width = 40;
-const image_height = 40;
+const player_width = 40;
+const player_height = 40;
 const player_speed = 2;
 
 pub fn main() void {
@@ -26,17 +26,17 @@ pub fn main() void {
     const rend = c.SDL_CreateRenderer(window, 0, c.SDL_RENDERER_ACCELERATED);
     defer c.SDL_DestroyRenderer(rend);
 
-    // Create image surface
-    const image_surface = c.SDL_LoadBMP("test.bmp");
-    defer c.SDL_FreeSurface(image_surface);
+    // Create player surface
+    const player_surface = c.SDL_LoadBMP("test.bmp");
+    defer c.SDL_FreeSurface(player_surface);
 
-    // Create image texture
-    const image_texture = c.SDL_CreateTextureFromSurface(rend, image_surface);
-    defer c.SDL_DestroyTexture(image_texture);
+    // Create player texture
+    const player_texture = c.SDL_CreateTextureFromSurface(rend, player_surface);
+    defer c.SDL_DestroyTexture(player_texture);
 
-    // Source and destination rectangle of the image
-    const srcrect = c.SDL_Rect{.x = 0, .y = 0, .w = image_width, .h = image_height};
-    var dstrect = c.SDL_Rect{.x = 20, .y = 20, .w = image_width, .h = image_height};
+    // Source and destination rectangle of the player
+    const srcrect = c.SDL_Rect{.x = 0, .y = 0, .w = player_width, .h = player_height};
+    var dstrect = c.SDL_Rect{.x = 20, .y = 20, .w = player_width, .h = player_height};
 
     // [ Red, Green, Blue, Alpha ]
     _ = c.SDL_SetRenderDrawColor(rend, 255, 255, 255, 255);
@@ -92,8 +92,8 @@ pub fn main() void {
         // Clear renderer
         _ = c.SDL_RenderClear(rend);
         
-        // Render the image
-        _ = c.SDL_RenderCopy(rend, image_texture, &srcrect, &dstrect);
+        // Render the player
+        _ = c.SDL_RenderCopy(rend, player_texture, &srcrect, &dstrect);
         
         // Updates the screen (renderer)
         c.SDL_RenderPresent(rend);
