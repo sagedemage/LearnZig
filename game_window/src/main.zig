@@ -100,6 +100,7 @@ pub fn main() void {
         c.SDL_RenderPresent(rend);
 
         // Calculates to 60 fps
+        // 1000 ms equals 1s
         const miliseconds = 1000;
         const gameplay_frames = 60;
         c.SDL_Delay(miliseconds / gameplay_frames);
