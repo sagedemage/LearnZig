@@ -83,7 +83,7 @@ pub fn main() void {
         }
 
         // Hold Movement Keybindings
-        var state = c.SDL_GetKeyboardState(null);
+        var state: [*]const u8 = c.SDL_GetKeyboardState(null);
         if (state[c.SDL_SCANCODE_RIGHT] == 1) {
             dstrect.x += player_speed;
         }
