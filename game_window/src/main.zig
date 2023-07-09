@@ -9,13 +9,13 @@ const std = @import("std");
 
 const level_width: i32 = 640;
 const level_height: i32 = 400;
-const screen_width: i32 = 800;
-const screen_height: i32 = 450;
-const player_width: i32 = 40;
-const player_height: i32 = 40;
-const player_speed: i32 = 2;
-const chunksize: i32 = 1024;
-const music_volume: i32 = 64; // 128
+const screen_width: u32 = 800;
+const screen_height: u32 = 450;
+const player_width: u32 = 40;
+const player_height: u32 = 40;
+const player_speed: u32 = 2;
+const chunksize: u32 = 1024;
+const music_volume: u32 = 64; // 128
 
 pub fn main() void {
     const sdl_status: c_int = c.SDL_Init(c.SDL_INIT_VIDEO);
