@@ -15,14 +15,16 @@ const player_height = 40;
 const player_speed = 2;
 
 pub fn main() void {
-    const status: c_int = c.SDL_Init(c.SDL_INIT_VIDEO);
-    if (status == -1) {
+    const sdl_status: c_int = c.SDL_Init(c.SDL_INIT_VIDEO);
+    defer c.SDL_Quit();
+
+    if (sdl_status == -1) {
         std.debug.print("SDL_Init Error", .{});
     }
-    defer c.SDL_Quit();
 
     // Create window
     const window = c.SDL_CreateWindow("SDL2 Window", c.SDL_WINDOWPOS_CENTERED, c.SDL_WINDOWPOS_CENTERED, level_width, level_height, 0);
+    defer c.SDL_DestroyWindow(window);
 
     // Create renderer
     const rend = c.SDL_CreateRenderer(window, 0, c.SDL_RENDERER_ACCELERATED);
