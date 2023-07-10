@@ -31,6 +31,7 @@ pub fn main() void {
     }
 
     // Create window
+    // [*]c.SDL_Window
     const window = c.SDL_CreateWindow("SDL2 Window", c.SDL_WINDOWPOS_CENTERED, c.SDL_WINDOWPOS_CENTERED, level_width, level_height, 0);
     defer c.SDL_DestroyWindow(window);
 
@@ -43,6 +44,7 @@ pub fn main() void {
     }
 
     // Create renderer
+    // [*]c.SDL_Renderer
     const rend = c.SDL_CreateRenderer(window, 0, c.SDL_RENDERER_ACCELERATED);
     defer c.SDL_DestroyRenderer(rend);
 
@@ -138,8 +140,8 @@ pub fn main() void {
 
         // Calculates to 60 fps
         // 1000 ms equals 1s
-        const miliseconds = 1000;
-        const gameplay_frames = 60;
+        const miliseconds: i32 = 1000;
+        const gameplay_frames: i32 = 60;
         c.SDL_Delay(miliseconds / gameplay_frames);
     }
 }
