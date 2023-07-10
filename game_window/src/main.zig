@@ -31,8 +31,7 @@ pub fn main() void {
     }
 
     // Create window
-    // [*]c.SDL_Window
-    const window = c.SDL_CreateWindow("SDL2 Window", c.SDL_WINDOWPOS_CENTERED, c.SDL_WINDOWPOS_CENTERED, level_width, level_height, 0);
+    const window: ?*c.SDL_Window = c.SDL_CreateWindow("SDL2 Window", c.SDL_WINDOWPOS_CENTERED, c.SDL_WINDOWPOS_CENTERED, level_width, level_height, 0);
     defer c.SDL_DestroyWindow(window);
 
     // Initialize SDL_mixer
@@ -44,20 +43,17 @@ pub fn main() void {
     }
 
     // Create renderer
-    // [*]c.SDL_Renderer
-    const rend = c.SDL_CreateRenderer(window, 0, c.SDL_RENDERER_ACCELERATED);
+    const rend: ?*c.SDL_Renderer = c.SDL_CreateRenderer(window, 0, c.SDL_RENDERER_ACCELERATED);
     defer c.SDL_DestroyRenderer(rend);
 
-    // [*]c.Mix_Music
-    const music = c.Mix_LoadMUS("test.ogg");
+    const music: ?*c.Mix_Music = c.Mix_LoadMUS("test.ogg");
 
     // Create player surface
     const player_surface: [*]c.SDL_Surface = c.IMG_Load("player.png");
     defer c.SDL_FreeSurface(player_surface);
 
     // Create player texture
-    // [*]c.SDL_Texture
-    const player_texture = c.SDL_CreateTextureFromSurface(rend, player_surface);
+    const player_texture: ?*c.SDL_Texture = c.SDL_CreateTextureFromSurface(rend, player_surface);
     defer c.SDL_DestroyTexture(player_texture);
 
     // Source and destination rectangle of the player
