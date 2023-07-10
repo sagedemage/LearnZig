@@ -61,11 +61,7 @@ pub fn main() void {
     const player_srcrect: c.SDL_Rect = c.SDL_Rect{ .x = 0, .y = 0, .w = player_width, .h = player_height };
     var player_dstrect: c.SDL_Rect = c.SDL_Rect{ .x = 20, .y = 20, .w = player_width, .h = player_height };
 
-    var player = Player{
-        .srcrect = player_srcrect,
-        .dstrect = player_dstrect,
-        .texture = player_texture
-    };
+    var player = Player{ .srcrect = player_srcrect, .dstrect = player_dstrect, .texture = player_texture };
 
     // [ Red, Green, Blue, Alpha ]
     _ = c.SDL_SetRenderDrawColor(rend, 255, 255, 255, 255);
