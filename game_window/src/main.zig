@@ -52,8 +52,8 @@ pub fn main() void {
     defer c.SDL_DestroyTexture(player_texture);
 
     // Source and destination rectangle of the player
-    const srcrect = c.SDL_Rect{.x = 0, .y = 0, .w = player_width, .h = player_height};
-    var dstrect = c.SDL_Rect{.x = 20, .y = 20, .w = player_width, .h = player_height};
+    const srcrect = c.SDL_Rect{ .x = 0, .y = 0, .w = player_width, .h = player_height };
+    var dstrect = c.SDL_Rect{ .x = 20, .y = 20, .w = player_width, .h = player_height };
 
     // [ Red, Green, Blue, Alpha ]
     _ = c.SDL_SetRenderDrawColor(rend, 255, 255, 255, 255);
@@ -67,11 +67,11 @@ pub fn main() void {
         std.debug.print("Mix_PlayMusic Error\n", .{});
     }
 
-    mainloop: while(true) {
+    mainloop: while (true) {
         // Game loop
         var event: c.SDL_Event = undefined;
         while (c.SDL_PollEvent(&event) != 0) {
-            switch(event.type) {
+            switch (event.type) {
                 c.SDL_QUIT => break :mainloop,
                 c.SDL_KEYDOWN => {
                     if (event.key.keysym.scancode == c.SDL_SCANCODE_ESCAPE) {
@@ -117,10 +117,10 @@ pub fn main() void {
 
         // Clear renderer
         _ = c.SDL_RenderClear(rend);
-        
+
         // Render the player
         _ = c.SDL_RenderCopy(rend, player_texture, &srcrect, &dstrect);
-        
+
         // Updates the screen (renderer)
         c.SDL_RenderPresent(rend);
 
