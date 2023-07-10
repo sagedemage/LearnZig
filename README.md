@@ -6,6 +6,7 @@ This whole repository is for learning the new programming language Zig.
 2. Convert u32 to u8 (convert_u32_to_u8)
 3. Print to stderr (print_to_stderr)
 4. Read File (read_file)
+5. Struct (struct)
 
 ## Install Zig from Source on Ubuntu 22.04
 ![install zig from source](./install_zig_from_source.md)
