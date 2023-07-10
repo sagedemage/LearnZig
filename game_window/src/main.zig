@@ -17,6 +17,11 @@ const player_speed: u32 = 2;
 const chunksize: u32 = 1024;
 const music_volume: u32 = 64; // 128
 
+const Player = struct {
+    srcrect: c.SDL_Rect,
+    dstrect: c.SDL_Rect,
+};
+
 pub fn main() void {
     const sdl_status: c_int = c.SDL_Init(c.SDL_INIT_VIDEO);
     defer c.SDL_Quit();
@@ -41,19 +46,26 @@ pub fn main() void {
     const rend = c.SDL_CreateRenderer(window, 0, c.SDL_RENDERER_ACCELERATED);
     defer c.SDL_DestroyRenderer(rend);
 
+    // [*]c.Mix_Music
     const music = c.Mix_LoadMUS("test.ogg");
 
     // Create player surface
-    const player_surface = c.IMG_Load("player.png");
+    const player_surface: [*]c.SDL_Surface = c.IMG_Load("player.png");
     defer c.SDL_FreeSurface(player_surface);
 
     // Create player texture
+    // [*]c.SDL_Texture
     const player_texture = c.SDL_CreateTextureFromSurface(rend, player_surface);
     defer c.SDL_DestroyTexture(player_texture);
 
     // Source and destination rectangle of the player
-    const srcrect = c.SDL_Rect{ .x = 0, .y = 0, .w = player_width, .h = player_height };
-    var dstrect = c.SDL_Rect{ .x = 20, .y = 20, .w = player_width, .h = player_height };
+    const player_srcrect: c.SDL_Rect = c.SDL_Rect{ .x = 0, .y = 0, .w = player_width, .h = player_height };
+    var player_dstrect: c.SDL_Rect = c.SDL_Rect{ .x = 20, .y = 20, .w = player_width, .h = player_height };
+
+    var player = Player{
+        .srcrect = player_srcrect,
+        .dstrect = player_dstrect,
+    };
 
     // [ Red, Green, Blue, Alpha ]
     _ = c.SDL_SetRenderDrawColor(rend, 255, 255, 255, 255);
@@ -85,41 +97,41 @@ pub fn main() void {
         // Hold Movement Keybindings
         var state: [*]const u8 = c.SDL_GetKeyboardState(null);
         if (state[c.SDL_SCANCODE_RIGHT] == 1) {
-            dstrect.x += player_speed;
+            player.dstrect.x += player_speed;
         }
         if (state[c.SDL_SCANCODE_LEFT] == 1) {
-            dstrect.x -= player_speed;
+            player.dstrect.x -= player_speed;
         }
         if (state[c.SDL_SCANCODE_DOWN] == 1) {
-            dstrect.y += player_speed;
+            player.dstrect.y += player_speed;
         }
         if (state[c.SDL_SCANCODE_UP] == 1) {
-            dstrect.y -= player_speed;
+            player.dstrect.y -= player_speed;
         }
 
         // Player boundaries
-        if (dstrect.x < 0) {
+        if (player.dstrect.x < 0) {
             // left boundary
-            dstrect.x = 0;
+            player.dstrect.x = 0;
         }
-        if (dstrect.x + dstrect.w > level_width) {
+        if (player.dstrect.x + player.dstrect.w > level_width) {
             // right boundary
-            dstrect.x = level_width - dstrect.w;
+            player.dstrect.x = level_width - player.dstrect.w;
         }
-        if (dstrect.y + dstrect.h > level_height) {
+        if (player.dstrect.y + player.dstrect.h > level_height) {
             // bottom boundary
-            dstrect.y = level_height - dstrect.h;
+            player.dstrect.y = level_height - player.dstrect.h;
         }
-        if (dstrect.y < 0) {
+        if (player.dstrect.y < 0) {
             // top boundary
-            dstrect.y = 0;
+            player.dstrect.y = 0;
         }
 
         // Clear renderer
         _ = c.SDL_RenderClear(rend);
 
         // Render the player
-        _ = c.SDL_RenderCopy(rend, player_texture, &srcrect, &dstrect);
+        _ = c.SDL_RenderCopy(rend, player_texture, &player.srcrect, &player.dstrect);
 
         // Updates the screen (renderer)
         c.SDL_RenderPresent(rend);
