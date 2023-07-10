@@ -20,6 +20,7 @@ const music_volume: u32 = 64; // 128
 const Player = struct {
     srcrect: c.SDL_Rect,
     dstrect: c.SDL_Rect,
+    texture: ?*c.SDL_Texture,
 };
 
 pub fn main() void {
@@ -63,6 +64,7 @@ pub fn main() void {
     var player = Player{
         .srcrect = player_srcrect,
         .dstrect = player_dstrect,
+        .texture = player_texture
     };
 
     // [ Red, Green, Blue, Alpha ]
@@ -129,7 +131,7 @@ pub fn main() void {
         _ = c.SDL_RenderClear(rend);
 
         // Render the player
-        _ = c.SDL_RenderCopy(rend, player_texture, &player.srcrect, &player.dstrect);
+        _ = c.SDL_RenderCopy(rend, player.texture, &player.srcrect, &player.dstrect);
 
         // Updates the screen (renderer)
         c.SDL_RenderPresent(rend);
