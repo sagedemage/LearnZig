@@ -4,8 +4,7 @@ zig-out
 # Production directory
 */prod/*
 !*/prod/build.sh
-!*/prod/player.png  
-!*/prod/test.ogg
+!*/prod/player.bmp
 
 *.kra
 *.kra*
