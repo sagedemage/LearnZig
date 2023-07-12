@@ -23,7 +23,7 @@ const Player = struct {
     texture: ?*c.SDL_Texture,
 };
 
-pub fn main() void {
+pub fn main() !void {
     const sdl_status: c_int = c.SDL_Init(c.SDL_INIT_VIDEO);
     defer c.SDL_Quit();
 
