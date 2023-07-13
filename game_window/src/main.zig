@@ -18,6 +18,7 @@ const Player = struct {
 };
 
 pub fn main() !void {
+    // Initialize the SDL library
     const sdl_status: c_int = c.SDL_Init(c.SDL_INIT_VIDEO);
     defer c.SDL_Quit();
 
