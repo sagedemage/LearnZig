@@ -48,7 +48,7 @@ pub fn main() !void {
 
     var player = Player{ .srcrect = player_srcrect, .dstrect = player_dstrect, .texture = player_texture };
 
-    // [ Red, Green, Blue, Alpha ]
+    // Set the background color to white
     _ = c.SDL_SetRenderDrawColor(rend, 255, 255, 255, 255);
 
     mainloop: while (true) {
@@ -69,15 +69,19 @@ pub fn main() !void {
         // Hold Movement Keybindings
         var state: [*]const u8 = c.SDL_GetKeyboardState(null);
         if (state[c.SDL_SCANCODE_RIGHT] == 1) {
+            // move the player right
             player.dstrect.x += player_speed;
         }
         if (state[c.SDL_SCANCODE_LEFT] == 1) {
+            // move the player left
             player.dstrect.x -= player_speed;
         }
         if (state[c.SDL_SCANCODE_DOWN] == 1) {
+            // move the player down
             player.dstrect.y += player_speed;
         }
         if (state[c.SDL_SCANCODE_UP] == 1) {
+            // move the player up
             player.dstrect.y -= player_speed;
         }
 
@@ -109,7 +113,7 @@ pub fn main() !void {
         c.SDL_RenderPresent(rend);
 
         // Calculates to 60 fps
-        // 1000 ms equals 1s
+        // 1000ms equals 1s
         const miliseconds: i32 = 1000;
         const gameplay_frames: i32 = 60;
         c.SDL_Delay(miliseconds / gameplay_frames);
