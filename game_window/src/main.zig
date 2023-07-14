@@ -4,7 +4,6 @@ const c = @cImport({
 });
 
 const std = @import("std");
-const expect = @import("std").testing.expect;
 
 const level_width: i32 = 640;
 const level_height: i32 = 400;
@@ -20,7 +19,7 @@ const Player = struct {
 
 pub fn main() !void {
     // Initialize the SDL library
-    try expect(c.SDL_Init(c.SDL_INIT_VIDEO) != -1);
+    try std.testing.expect(c.SDL_Init(c.SDL_INIT_VIDEO) != -1);
     defer c.SDL_Quit();
 
     // Create window
@@ -35,7 +34,7 @@ pub fn main() !void {
     const player_surface: ?[*]c.SDL_Surface = c.SDL_LoadBMP("player.bmp");
     defer c.SDL_FreeSurface(player_surface);
 
-    try expect(player_surface != null);
+    try std.testing.expect(player_surface != null);
 
     // Create player texture
     const player_texture: ?*c.SDL_Texture = c.SDL_CreateTextureFromSurface(rend, player_surface);
