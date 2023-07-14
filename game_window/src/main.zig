@@ -20,7 +20,7 @@ const Player = struct {
 
 pub fn main() !void {
     // Initialize the SDL library
-    _ = try expect(c.SDL_Init(c.SDL_INIT_VIDEO) != -1);
+    try expect(c.SDL_Init(c.SDL_INIT_VIDEO) != -1);
     defer c.SDL_Quit();
 
     // Create window
