@@ -6,9 +6,13 @@ zig-out
 !*/prod/build.sh
 !*/prod/player.bmp
 
+# Media files
 *.kra
 *.kra*
 *.aup3
 *.mscz
+
+# Cache files
+*.*~
 .mscbackup/
 
