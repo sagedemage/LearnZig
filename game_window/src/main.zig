@@ -32,7 +32,7 @@ pub fn main() !void {
     defer c.SDL_DestroyRenderer(rend);
 
     // Create player surface
-    const player_surface: ?[*]c.SDL_Surface = c.SDL_LoadBMP("playe.bmp");
+    const player_surface: ?[*]c.SDL_Surface = c.SDL_LoadBMP("player.bmp");
     defer c.SDL_FreeSurface(player_surface);
 
     try expect(player_surface != null);
