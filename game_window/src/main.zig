@@ -32,8 +32,12 @@ pub fn main() !void {
     defer c.SDL_DestroyRenderer(rend);
 
     // Create player surface
-    const player_surface: [*]c.SDL_Surface = c.SDL_LoadBMP("player.bmp");
+    const player_surface: ?[*]c.SDL_Surface = c.SDL_LoadBMP("playe.bmp");
     defer c.SDL_FreeSurface(player_surface);
+
+    if (player_surface == null) {
+        std.debug.print("SDL_LoadBMP Error \n", .{});
+    }
 
     // Create player texture
     const player_texture: ?*c.SDL_Texture = c.SDL_CreateTextureFromSurface(rend, player_surface);
