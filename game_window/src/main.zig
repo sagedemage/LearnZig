@@ -35,9 +35,7 @@ pub fn main() !void {
     const player_surface: ?[*]c.SDL_Surface = c.SDL_LoadBMP("playe.bmp");
     defer c.SDL_FreeSurface(player_surface);
 
-    if (player_surface == null) {
-        std.debug.print("SDL_LoadBMP Error \n", .{});
-    }
+    try expect(player_surface != null);
 
     // Create player texture
     const player_texture: ?*c.SDL_Texture = c.SDL_CreateTextureFromSurface(rend, player_surface);
