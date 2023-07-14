@@ -4,6 +4,7 @@ const c = @cImport({
 });
 
 const std = @import("std");
+const expect = @import("std").testing.expect;
 
 const level_width: i32 = 640;
 const level_height: i32 = 400;
@@ -19,12 +20,8 @@ const Player = struct {
 
 pub fn main() !void {
     // Initialize the SDL library
-    const sdl_status: c_int = c.SDL_Init(c.SDL_INIT_VIDEO);
+    _ = try expect(c.SDL_Init(c.SDL_INIT_VIDEO) != -1);
     defer c.SDL_Quit();
-
-    if (sdl_status == -1) {
-        std.debug.print("SDL_Init Error\n", .{});
-    }
 
     // Create window
     const window: ?*c.SDL_Window = c.SDL_CreateWindow("SDL2 Window", c.SDL_WINDOWPOS_CENTERED, c.SDL_WINDOWPOS_CENTERED, level_width, level_height, 0);
