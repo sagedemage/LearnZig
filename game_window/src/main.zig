@@ -8,8 +8,8 @@ const expect = @import("std").testing.expect;
 
 const level_width: i32 = 640;
 const level_height: i32 = 400;
-const player_width: u32 = 40;
-const player_height: u32 = 40;
+const player_width: u32 = 20;
+const player_height: u32 = 20;
 const player_speed: u32 = 2;
 
 const Player = struct {
