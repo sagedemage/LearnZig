@@ -11,11 +11,7 @@ const PLAYER_WIDTH: u32 = 20;
 const PLAYER_HEIGHT: u32 = 20;
 const PLAYER_SPEED: u32 = 2;
 
-const Player = struct {
-    srcrect: c.SDL_Rect,
-    dstrect: c.SDL_Rect,
-    texture: ?*c.SDL_Texture,
-};
+const Player = struct { srcrect: c.SDL_Rect, dstrect: c.SDL_Rect, texture: ?*c.SDL_Texture, speed: c_int };
 
 pub fn main() !void {
     // Initialize the SDL library
@@ -44,7 +40,7 @@ pub fn main() !void {
     const player_srcrect: c.SDL_Rect = c.SDL_Rect{ .x = 0, .y = 0, .w = PLAYER_WIDTH, .h = PLAYER_HEIGHT };
     var player_dstrect: c.SDL_Rect = c.SDL_Rect{ .x = 20, .y = 20, .w = PLAYER_WIDTH, .h = PLAYER_HEIGHT };
 
-    var player = Player{ .srcrect = player_srcrect, .dstrect = player_dstrect, .texture = player_texture };
+    var player = Player{ .srcrect = player_srcrect, .dstrect = player_dstrect, .texture = player_texture, .speed = PLAYER_SPEED };
 
     // Set the background color to white
     _ = c.SDL_SetRenderDrawColor(rend, 255, 255, 255, 255);
@@ -68,19 +64,19 @@ pub fn main() !void {
         var state: [*]const u8 = c.SDL_GetKeyboardState(null);
         if (state[c.SDL_SCANCODE_RIGHT] == 1) {
             // move the player right
-            player.dstrect.x += PLAYER_SPEED;
+            player.dstrect.x += player.speed;
         }
         if (state[c.SDL_SCANCODE_LEFT] == 1) {
             // move the player left
-            player.dstrect.x -= PLAYER_SPEED;
+            player.dstrect.x -= player.speed;
         }
         if (state[c.SDL_SCANCODE_DOWN] == 1) {
             // move the player down
-            player.dstrect.y += PLAYER_SPEED;
+            player.dstrect.y += player.speed;
         }
         if (state[c.SDL_SCANCODE_UP] == 1) {
             // move the player up
-            player.dstrect.y -= PLAYER_SPEED;
+            player.dstrect.y -= player.speed;
         }
 
         // Player boundaries
