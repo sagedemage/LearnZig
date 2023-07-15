@@ -5,11 +5,11 @@ const c = @cImport({
 
 const std = @import("std");
 
-const level_width: i32 = 640;
-const level_height: i32 = 400;
-const player_width: u32 = 20;
-const player_height: u32 = 20;
-const player_speed: u32 = 2;
+const LEVEL_WIDTH: i32 = 640;
+const LEVEL_HEIGHT: i32 = 400;
+const PLAYER_WIDTH: u32 = 20;
+const PLAYER_HEIGHT: u32 = 20;
+const PLAYER_SPEED: u32 = 2;
 
 const Player = struct {
     srcrect: c.SDL_Rect,
@@ -23,7 +23,7 @@ pub fn main() !void {
     defer c.SDL_Quit();
 
     // Create window
-    const window: ?*c.SDL_Window = c.SDL_CreateWindow("SDL2 Window", c.SDL_WINDOWPOS_CENTERED, c.SDL_WINDOWPOS_CENTERED, level_width, level_height, 0);
+    const window: ?*c.SDL_Window = c.SDL_CreateWindow("SDL2 Window", c.SDL_WINDOWPOS_CENTERED, c.SDL_WINDOWPOS_CENTERED, LEVEL_WIDTH, LEVEL_HEIGHT, 0);
     defer c.SDL_DestroyWindow(window);
 
     // Create renderer
@@ -41,8 +41,8 @@ pub fn main() !void {
     defer c.SDL_DestroyTexture(player_texture);
 
     // Source and destination rectangle of the player
-    const player_srcrect: c.SDL_Rect = c.SDL_Rect{ .x = 0, .y = 0, .w = player_width, .h = player_height };
-    var player_dstrect: c.SDL_Rect = c.SDL_Rect{ .x = 20, .y = 20, .w = player_width, .h = player_height };
+    const player_srcrect: c.SDL_Rect = c.SDL_Rect{ .x = 0, .y = 0, .w = PLAYER_WIDTH, .h = PLAYER_HEIGHT };
+    var player_dstrect: c.SDL_Rect = c.SDL_Rect{ .x = 20, .y = 20, .w = PLAYER_WIDTH, .h = PLAYER_HEIGHT };
 
     var player = Player{ .srcrect = player_srcrect, .dstrect = player_dstrect, .texture = player_texture };
 
@@ -68,19 +68,19 @@ pub fn main() !void {
         var state: [*]const u8 = c.SDL_GetKeyboardState(null);
         if (state[c.SDL_SCANCODE_RIGHT] == 1) {
             // move the player right
-            player.dstrect.x += player_speed;
+            player.dstrect.x += PLAYER_SPEED;
         }
         if (state[c.SDL_SCANCODE_LEFT] == 1) {
             // move the player left
-            player.dstrect.x -= player_speed;
+            player.dstrect.x -= PLAYER_SPEED;
         }
         if (state[c.SDL_SCANCODE_DOWN] == 1) {
             // move the player down
-            player.dstrect.y += player_speed;
+            player.dstrect.y += PLAYER_SPEED;
         }
         if (state[c.SDL_SCANCODE_UP] == 1) {
             // move the player up
-            player.dstrect.y -= player_speed;
+            player.dstrect.y -= PLAYER_SPEED;
         }
 
         // Player boundaries
@@ -88,13 +88,13 @@ pub fn main() !void {
             // left boundary
             player.dstrect.x = 0;
         }
-        if (player.dstrect.x + player.dstrect.w > level_width) {
+        if (player.dstrect.x + player.dstrect.w > LEVEL_WIDTH) {
             // right boundary
-            player.dstrect.x = level_width - player.dstrect.w;
+            player.dstrect.x = LEVEL_WIDTH - player.dstrect.w;
         }
-        if (player.dstrect.y + player.dstrect.h > level_height) {
+        if (player.dstrect.y + player.dstrect.h > LEVEL_HEIGHT) {
             // bottom boundary
-            player.dstrect.y = level_height - player.dstrect.h;
+            player.dstrect.y = LEVEL_HEIGHT - player.dstrect.h;
         }
         if (player.dstrect.y < 0) {
             // top boundary
