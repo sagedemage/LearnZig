@@ -10,6 +10,8 @@ pub fn main() !void {
 
     // Listener
     try server.listen(net.Address.parseIp("127.0.0.1", 8080) catch unreachable);
+
+    // Print the Listen Address of the Server
     std.debug.print("Listening at {any}\n", .{server.listen_address});
 
     while (true) {
