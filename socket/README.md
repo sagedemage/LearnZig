@@ -3,7 +3,7 @@ Created client and server programs to demonstrate socket programing in Zig.
 
 ## How to kill a port that is being used
 ```
-sudo fuser -k Port_Number/tcp
+sudo fuser -k 8080/tcp
 ```
 
 ## Resources
