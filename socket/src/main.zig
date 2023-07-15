@@ -23,10 +23,10 @@ pub fn main() !void {
         const server_msg = "Good bye";
 
         var buf: [1024]u8 = undefined;
-        _ = try conn.stream.read(buf[0..]);
 
-        //const msg_size = try conn.stream.read(buf[0..]);
-        std.debug.print("{any}\n", .{buf[0]});
+        const msg_size = try conn.stream.read(buf[0..]);
+
+        std.debug.print("{any}\n", .{buf[0..msg_size]});
 
         _ = try conn.stream.write(server_msg);
     }
