@@ -24,7 +24,7 @@ pub fn main() !void {
 
         const msg_size = try conn.stream.read(buf[0..]);
 
-        std.debug.print("{any}\n", .{buf[0..msg_size]});
+        std.debug.print("{s}\n", .{buf[0..msg_size]});
 
         _ = try conn.stream.write(server_msg);
     }
