@@ -6,11 +6,11 @@ pub fn main() !void {
     var server = std.net.StreamServer.init(.{});
     defer server.deinit();
 
-    // Listener
+    // Start the listener to the address
     try server.listen(std.net.Address.parseIp("127.0.0.1", 8080) catch unreachable);
     defer server.close();
 
-    // Print the Listen Address of the Server
+    // Print the listener address of the server
     std.debug.print("Listening at {any}\n", .{server.listen_address});
 
     while (true) {
