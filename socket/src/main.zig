@@ -14,18 +14,16 @@ pub fn main() !void {
     std.debug.print("Listening at {any}\n", .{server.listen_address});
 
     while (true) {
-        // Accept
+        // Accept for connections
         const conn = try server.accept();
         defer conn.stream.close();
 
-        const server_msg = "Good bye";
-
         var buf: [1024]u8 = undefined;
 
+        // Read the buffer
         const msg_size = try conn.stream.read(buf[0..]);
 
+        // Print the message
         std.debug.print("{s}\n", .{buf[0..msg_size]});
-
-        _ = try conn.stream.write(server_msg);
     }
 }
