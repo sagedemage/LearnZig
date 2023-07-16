@@ -1,16 +1,13 @@
 /// Server
 const std = @import("std");
-const net = std.net;
-const fs = std.fs;
-const os = std.os;
 
 pub fn main() !void {
     // Create server
-    var server = net.StreamServer.init(.{});
+    var server = std.net.StreamServer.init(.{});
     defer server.deinit();
 
     // Listener
-    try server.listen(net.Address.parseIp("127.0.0.1", 8080) catch unreachable);
+    try server.listen(std.net.Address.parseIp("127.0.0.1", 8080) catch unreachable);
     defer server.close();
 
     // Print the Listen Address of the Server
