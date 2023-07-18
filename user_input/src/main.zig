@@ -6,7 +6,6 @@ pub fn main() !void {
 
     // Get user input
     std.debug.print("input: ", .{});
-
     var buf: [1024]u8 = undefined;
     const size = try stdin.read(buf[0..]);
 
