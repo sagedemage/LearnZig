@@ -11,4 +11,7 @@ pub fn main() !void {
 
     // Send a message to the server
     _ = try conn.write(client_msg);
+
+    // Notify the client that the message was sent
+    std.debug.print("Message was sent to the server!\n", .{});
 }
