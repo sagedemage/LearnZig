@@ -31,4 +31,5 @@ zig init-exe
 - [Standard Library Documentation (0.10.1)](https://ziglang.org/documentation/0.10.1/std/#root)
 
 ### Third Party Guides
+- [Zig by Example](https://zigbyexample.github.io)
 - [Zig Strings in 5 minutes](https://www.huy.rocks/everyday/01-04-2022-zig-strings-in-5-minutes)
